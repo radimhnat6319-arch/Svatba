@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Josi &amp; Radim – 14. 8. 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-muted: #666666;
+      --accent-black: #111111;
+      --border-light: #e5e5e5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.7;
+    }
+
+    /* Horní navigační lišta */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-dark);
+    }
+
+    /* Parallax fotka na pozadí (odkrývá se při scrollování) */
+    .parallax-window {
+      position: relative;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('svatba.jpg');
+      background-attachment: fixed;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #2b332c; /* Záložní barva před nahráním fotky */
+    }
+
+    /* Úvodní obrazovka */
+    .hero {
+      min-height: 88vh;
+      margin-top: 62px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #ffffff;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 7vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .hero .date {
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    /* Průhledné „průzory“ na fotku mezi bílými sekcemi */
+    .photo-gap {
+      height: 36vh;
+      min-height: 240px;
+    }
+
+    /* Bílé obsahové bloky přejíždějící přes fotku */
+    .content-band {
+      background-color: var(--bg-white);
+      padding: 90px 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      color: var(--text-dark);
+    }
+
+    .lead-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: #333333;
+      max-width: 720px;
+      margin: 0 auto 24px;
+    }
+
+    /* Dva sloupce (Obřad + Raut a párty) */
+    .two-columns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .col-item h3 {
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .col-item p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: #333333;
+      margin-bottom: 18px;
+    }
+
+    .meta-info {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      line-height: 1.9;
+    }
+
+    .meta-info a {
+      color: var(--text-dark);
+      text-underline-offset: 4px;
+    }
+
+    /* Sekce 2 – Praktické info (parkování a obuv) */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 32px;
+      text-align: left;
+    }
+
+    .tip-box {
+      border: 1px solid var(--border-light);
+      padding: 32px 28px;
+      background: #fafafa;
+    }
+
+    .tip-box h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .tip-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.22rem;
+      color: #333333;
+    }
+
+    /* Tlačítko a RSVP formulář */
+    .btn {
+      display: inline-block;
+      background-color: var(--accent-black);
+      color: #ffffff;
+      border: 1px solid var(--accent-black);
+      padding: 16px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn:hover {
+      background-color: #ffffff;
+      color: var(--accent-black);
+    }
+
+    .rsvp-form {
+      max-width: 520px;
+      margin: 36px auto 0;
+      text-align: left;
+      display: none; /* Otevře se po kliknutí na tlačítko */
+      border-top: 1px solid var(--border-light);
+      padding-top: 32px;
+    }
+
+    .rsvp-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cccccc;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      background: #ffffff;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: #fafafa;
+      border: 1px solid var(--border-light);
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-black);
+      cursor: pointer;
+    }
+
+    .checkbox-row label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-transform: none;
+      letter-spacing: 0.03em;
+    }
+
+    .form-status {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #1f5c2e;
+      display: none;
+    }
+
+    footer {
+      background-color: var(--bg-white);
+      border-top: 1px solid var(--border-light);
+      padding: 36px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Mobilní zobrazení */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav ul {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        margin-top: 95px;
+        min-height: 75vh;
+      }
+
+      /* Na iOS Safari se background-attachment: fixed někdy seká, proto čistý fallback */
+      .parallax-window {
+        background-attachment: scroll;
+      }
+
+      .two-columns,
+      .tips-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .photo-gap {
+        height: 24vh;
+        min-height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Horní lišta -->
+  <header>
+    <div class="nav-container">
+      <a href="#uvod" class="logo">Josi &amp; Radim</a>
+      <nav>
+        <ul>
+          <li><a href="#uvod">Úvod</a></li>
+          <li><a href="#harmonogram">Harmonogram</a></li>
+          <li><a href="#informace">Praktické info</a></li>
+          <li><a href="#potvrzeni">Potvrzení účasti</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Jedna společná fotka na pozadí, přes kterou přejíždějí bílé sekce -->
+  <div class="parallax-window">
+
+    <!-- Úvodní sekce -->
+    <section id="uvod" class="hero">
+      <h1>Josi &amp; Radim</h1>
+      <p class="date">14. 8. 2027</p>
+    </section>
+
+    <!-- 1. SEKCE: Harmonogram -->
+    <section id="harmonogram" class="content-band">
+      <div class="container">
+        <span class="eyebrow">14. srpna 2027 • Velká Úpa</span>
+        <h2>Harmonogram dne</h2>
+
+        <div class="two-columns">
+          <div class="col-item">
+            <span class="eyebrow">11:00</span>
+            <h3>Obřad &amp; průvod</h3>
+            <p>
+              Slavnostní svatební obřad proběhne v 11:00 v kostele Nejsvětější Trojice ve Velké Úpě. 
+              Hned po obřadu se společně vydáme ve slavnostním průvodu na místo oslavy.
+            </p>
+            <div class="meta-info">
+              <strong>Místo:</strong> Kostel Nejsvětější Trojice, Velká Úpa
+              (<a href="https://mapy.cz/zakladni?q=Kostel%20Nejsv%C4%9Bt%C4%9Bj%C5%A1%C3%AD%20Trojice%20Velk%C3%A1%20%C3%9Apa" target="_blank" rel="noopener">mapa</a>)<br>
+              <strong>Čas:</strong> 11:00
+            </div>
+          </div>
+
+          <div class="col-item">
+            <span class="eyebrow">Odpoledne &amp; večer</span>
+            <h3>Raut a párty</h3>
+            <p>
+              Po slavnostním průvodu nás čeká společný raut, přípitek, dobré jídlo a večerní párty 
+              až do pozdních hodin v penzionu Lion ve Velké Úpě.
+            </p>
+            <div class="meta-info">
+              <strong>Místo:</strong> Penzion Lion, Velká Úpa
+              (<a href="https://mapy.cz/zakladni?q=Penzion%20Lion%20Velk%C3%A1%20%C3%9Apa" target="_blank" rel="noopener">mapa</a>)<br>
+              <strong>Čas:</strong> Po obřadu – noc
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Průhled na spodní část fotky při scrollování -->
+    <div class="photo-gap" aria-hidden="true"></div>
+
+    <!-- 2. SEKCE: Parkování a obuv -->
+    <section id="informace" class="content-band">
+      <div class="container">
+        <span class="eyebrow">Co se bude hodit vědět</span>
+        <h2>Praktické informace</h2>
+        <p class="lead-text">
+          Aby pro vás byl celý den v Krkonoších co nejpohodlnější, připravili jsme pro vás 
+          dvě důležitá doporučení k dopravě a obutí.
+        </p>
+
+        <div class="tips-grid">
+          <div class="tip-box">
+            <h3>Parkování</h3>
+            <p>
+              Auto prosím zaparkujte v <strong>parkovacím domě</strong> ve Velké Úpě. 
+              Odtud je vše v pohodlné docházkové vzdálenosti a nebudete muset řešit hledání místa u kostela ani u penzionu.
+            </p>
+          </div>
+
+          <div class="tip-box">
+            <h3>Obuv do přírody</h3>
+            <p>
+              Jsme na horách a přesuny i část venkovního zázemí nejsou úplně „podpatky friendly“. 
+              Určitě si s sebou vezměte <strong>pohodlnou obuv do přírody</strong> nebo na přezutí, ať si užijete průvod i večerní zábavu bez bolesti nohou.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Další průhled na fotku při scrollování -->
+    <div class="photo-gap" aria-hidden="true"></div>
+
+    <!-- 3. SEKCE: Potvrzení účasti + přespání -->
+    <section id="potvrzeni" class="content-band">
+      <div class="container">
+        <span class="eyebrow">Dorazíte?</span>
+        <h2>Dejte nám vědět</h2>
+        <p class="lead-text">
+          Budeme moc rádi, když nám potvrdíte svou účast a zároveň dáte vědět, 
+          zda budete chtít na místě přespat, abychom pro vás včas zajistili nocleh.
+        </p>
+
+        <button type="button" class="btn" id="toggleRsvp">Potvrzení účasti</button>
+
+        <!-- Formulář (pro ostré odesílání na e-mail stačí doplnit action z Web3Forms / Formspree) -->
+        <form class="rsvp-form" id="rsvpForm">
+          <div class="form-group">
+            <label for="jmeno">Jméno a příjmení *</label>
+            <input type="text" id="jmeno" name="jmeno" placeholder="Např. Jan Novák s doprovodem" required>
+          </div>
+
+          <div class="form-group">
+            <label for="ucast">Účast na svatbě *</label>
+            <select id="ucast" name="ucast" required>
+              <option value="ano">Ano, moc rádi dorazíme</option>
+              <option value="ne">Bohužel se nemůžeme zúčastnit</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pocet">Počet osob</label>
+            <input type="number" id="pocet" name="pocet" min="1" max="10" value="1">
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox-row">
+              <input type="checkbox" id="prespani" name="prespani" value="ano">
+              <label for="prespani">Máme zájem o přespání (nocleh ve Velké Úpě)</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="poznamka">Poznámka (dieta, děti, dotaz)</label>
+            <textarea id="poznamka" name="poznamka" rows="3" placeholder="Nepovinné..."></textarea>
+          </div>
+
+          <button type="submit" class="btn">Odeslat odpověď</button>
+          <p class="form-status" id="formStatus">Děkujeme! Vaše odpověď byla zaznamenána.</p>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    Josi &amp; Radim • 14. 8. 2027 • Velká Úpa
+  </footer>
+
+  <script>
+    // Rozbalení formuláře po kliknutí na tlačítko
+    const toggleBtn = document.getElementById('toggleRsvp');
+    const rsvpForm = document.getElementById('rsvpForm');
+    const formStatus = document.getElementById('formStatus');
+
+    toggleBtn.addEventListener('click', () => {
+      rsvpForm.classList.toggle('active');
+    });
+
+    // Ukázkové odeslání (až si založíš bezplatný klíč na Web3Forms / Formspree, napojíme to přímo na tvůj e-mail)
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formStatus.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
